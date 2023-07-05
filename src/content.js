@@ -1,8 +1,9 @@
 // temporary setting
-const preferredLanguage = "bokmål";
+var preferredLanguage = "bokmål";
 // Send a message to the background script to get the preferred language
 chrome.runtime.sendMessage({method: "getPreferredLanguage"}, function(response) {
   preferredLanguage = response.preferredLanguage;
+  console.log(`Setting preferred language to ${preferredLanguage}`);
 });
 
 // Temporary, super-simple baseline in place of better
