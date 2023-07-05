@@ -1,5 +1,9 @@
 // temporary setting
 const preferredLanguage = "bokmål";
+// Send a message to the background script to get the preferred language
+chrome.runtime.sendMessage({method: "getPreferredLanguage"}, function(response) {
+  preferredLanguage = response.preferredLanguage;
+});
 
 // Temporary, super-simple baseline in place of better
 function predictLanguage(text) {
