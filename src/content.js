@@ -1,23 +1,43 @@
-// This is a dummy function for predicting language
+// temporary setting
+const preferredLanguage = "bokmål";
+
+// Temporary, super-simple baseline in place of better
 function predictLanguage(text) {
-  // Implement your language prediction logic here
-  console.log("Predicted bokmål")
-  return "bokmål"; // For now, just return bokmål
+  // Convert text and word to lowercase for case-insensitive comparison
+  if (text.toLowerCase().includes("ikkje")) {
+      console.log("Predicted nynorsk")
+      return "nynorsk";
+  } else if (text.toLowerCase().includes("ikke")) {
+      console.log("Predicted bokmål")
+      return "bokmål"; // For now, default to bokmål
+  } else {
+      return "other";
+  }
 }
 
 // This is a dummy function for translation
-function translate(text) {
+function translateToBokmal(text) {
   // Implement your translation logic here
   console.log("translating")
-  return "nn to nb ->" + text; // For now, just return the same text
+  return "nynorsk"; // For now, just return the same text
+}
+
+// This is a dummy function for translation
+function translateToNynorsk(text) {
+  // Implement your translation logic here
+  console.log("translating")
+  return "bokmål"; // For now, just return the same text
 }
 
 // Function that processes nodes
 function processNodes(nodes) {
   nodes.forEach(node => {
-      if (predictLanguage(node.nodeValue) === 'bokmål') {
-          node.nodeValue = translate(node.nodeValue);
-      }
+    const preidctedLanguage = predictLanguage(node.nodeValue);
+    if (preidctedLanguage === 'nynorsk' && preferredLanguage === 'bokmål') {
+      node.nodeValue = translateToBokmal(node.nodeValue);
+    } else if (preidctedLanguage === 'bokmål' && preferredLanguage === 'nynorsk') {
+      node.nodeValue = translateToNynorsk(node.nodeValue);
+    }
   });
 }
 
